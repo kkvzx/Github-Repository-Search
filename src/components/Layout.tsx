@@ -1,6 +1,7 @@
 import React from 'react';
 import {Link} from 'gatsby';
 import {GlobalStyle, styled} from '../styles/theme';
+import {GithubProvider} from '@/conetxt/context';
 
 const StyledNav = styled.nav`
   height: 90px;
@@ -49,22 +50,24 @@ interface Props {
 const Layout: React.FC<Props> = ({children}) => (
   <>
     <GlobalStyle />
-    <StyledNav>
-      <ul>
-        <li>
-          <Link activeClassName="active" to={`/`}>
-            Home
-          </Link>
-        </li>
+    <GithubProvider>
+      <StyledNav>
+        <ul>
+          <li>
+            <Link activeClassName="active" to={`/`}>
+              Home
+            </Link>
+          </li>
 
-        <li>
-          <Link activeClassName="active" to={`/bookmarks`}>
-            Bookmarks
-          </Link>
-        </li>
-      </ul>
-    </StyledNav>
-    <StyledMain>{children}</StyledMain>
+          <li>
+            <Link activeClassName="active" to={`/bookmarks`}>
+              Bookmarks
+            </Link>
+          </li>
+        </ul>
+      </StyledNav>
+      <StyledMain>{children}</StyledMain>
+    </GithubProvider>
   </>
 );
 
