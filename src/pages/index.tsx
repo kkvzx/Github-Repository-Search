@@ -1,14 +1,24 @@
-import Title from '@/components/Title';
+import React from 'react';
+import Layout from '@/components/Layout';
+import styled from 'styled-components';
+import SearchBar from '@/components/SearchBar';
 
-export default function Home() {
+const PageWrapper = styled.article`
+  padding: 2rem 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`;
+
+const Home: React.FC = () => {
   return (
-    <main>
-      <Title>Hello TypeScript!</Title>
-      <p>A TypeScript starter for Gatsby. Great for advanced users.</p>
-      <p>
-        Follow me on Twitter (
-        <a href="https://twitter.com/jpedroschmitz">@jpedroschmitz</a>)
-      </p>
-    </main>
+    <Layout>
+      <PageWrapper>
+        {/* props should be passed */}
+        <SearchBar />
+      </PageWrapper>
+    </Layout>
   );
-}
+};
+
+export default Home;
