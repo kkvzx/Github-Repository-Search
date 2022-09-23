@@ -1,8 +1,9 @@
-import React from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import Layout from '@/components/Layout';
 import styled from 'styled-components';
 import SearchBar from '@/components/SearchBar';
-import {GithubContext} from '@/conetxt/context';
+import Explore from '@/components/Explore';
+import axios from 'axios';
 
 const PageWrapper = styled.article`
   padding: 2rem 0;
@@ -12,18 +13,64 @@ const PageWrapper = styled.article`
 `;
 
 const Home: React.FC = () => {
-  const Dataf = () => {
-    const data = React.useContext(GithubContext);
-    console.log(data);
-    return <div>{data[1].full_name}</div>;
-  };
+  const [repoInput, setRepoInput] = useState('');
+  const [reposData, setReposData] = useState<any>();
+  const [amountOfResponses, setAmountOfResponses] = useState<number>(0);
+  const [currentPage, setCurrentPage] = useState<number>(1);
 
+  const fetchData = async () => {
+    if (repoInput) {
+      const queryTerm = `q=${repoInput}&`;
+      const querySort = ``;
+      const queryOrder = ``;
+      const queryPerPage = `per_page=30`;
+      const queryPage = `&page=${currentPage ? currentPage : 1}`;
+      const queryString = queryTerm + querySort + queryOrder + queryPerPage + queryPage;
+      let url = `https://api.github.com/search/repositories?${queryString}`;
+      try {
+        const result = await axios(url);
+        setReposData(result.data.items);
+        setAmountOfResponses(result.data.total_count);
+      } catch (err) {
+        console.log(err);
+      }
+    }
+  };
+  useEffect(() => {
+    fetchData();
+  }, [currentPage]);
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    fetchData();
+  };
+  const saveUserInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setRepoInput(e.target.value);
+  };
+  const clearUserInput = (e: React.MouseEvent<HTMLElement>) => {
+    setRepoInput('');
+  };
+  const pageToggle = (direction: string) => {
+    if (direction === 'next') setCurrentPage((prev) => prev + 1);
+    else setCurrentPage((prev) => prev - 1);
+  };
   return (
     <Layout>
       <PageWrapper>
-        <Dataf />
-        {/* props should be passed */}
-        <SearchBar />
+        <SearchBar
+          searchRepo={repoInput}
+          handleSubmit={handleSubmit}
+          saveUserInput={saveUserInput}
+          clearUserInput={clearUserInput}
+        />
+        {reposData && (
+          <Explore
+            amountOfResponses={amountOfResponses}
+            reposData={reposData}
+            currentPage={currentPage}
+            pageToggle={pageToggle}
+          />
+        )}
       </PageWrapper>
     </Layout>
   );

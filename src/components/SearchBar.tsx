@@ -1,5 +1,5 @@
 import {GatsbyImage, StaticImage} from 'gatsby-plugin-image';
-import React from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
 
 const SearchBarWrapper = styled.form`
@@ -8,7 +8,6 @@ const SearchBarWrapper = styled.form`
   display: grid;
   grid-template-columns: 1fr 3rem 3rem;
   grid-gap: 4px;
-  border-radius: 10px;
 `;
 const SearchBarInput = styled.input`
   width: 100%;
@@ -31,18 +30,28 @@ const SearchBarSubmit = styled.button`
     background: var(--lighterBackground-color);
   }
 `;
-const SearchBar = () => {
+const SearchBar = ({searchRepo, handleSubmit, saveUserInput, clearUserInput}: SearchBarProps) => {
   return (
-    <SearchBarWrapper>
-      <SearchBarInput type="text" required placeholder="Repository name" />
-      <SearchBarSubmit>
+    <SearchBarWrapper onSubmit={handleSubmit}>
+      <SearchBarInput
+        type="text"
+        value={searchRepo}
+        onChange={(e) => saveUserInput(e)}
+        placeholder="Repository name"></SearchBarInput>
+      <SearchBarSubmit type="submit">
         <StaticImage src="../assets/images/searchImage.png" placeholder="tracedSVG" alt="Search Button" />
       </SearchBarSubmit>
-      <SearchBarSubmit className="clear">
+      <SearchBarSubmit className="clear" onClick={(e) => clearUserInput(e)}>
         <StaticImage src="../assets/images/clearImage.png" placeholder="tracedSVG" alt="Search Button" />
       </SearchBarSubmit>
     </SearchBarWrapper>
   );
 };
+interface SearchBarProps {
+  searchRepo: string;
+  handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+  saveUserInput: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  clearUserInput: (e: React.MouseEvent<HTMLElement>) => void;
+}
 
 export default SearchBar;
