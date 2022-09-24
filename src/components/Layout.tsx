@@ -38,8 +38,11 @@ const StyledNav = styled.nav`
   }
 `;
 const StyledMain = styled.main`
-  height: calc(100vh - 90px);
+  min-height: calc(100vh - 90px);
+  width: 100%;
   padding: 0 20%;
+  background: var(--background-color);
+  border-radius: 50px 50px 0 0;
 `;
 
 interface Props {

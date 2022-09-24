@@ -22,6 +22,7 @@ export const theme = {
 const reset = () => `
 html {
   box-sizing: border-box;
+  overflow-x:hidden;
   margin: 0;
   padding: 0;
 }
@@ -73,9 +74,8 @@ html {
 
 body {
 font-family: 'Poppins', sans-serif;
-  background-color: ${theme.colors.background};
+  background-color: ${theme.colors.secondary};
   color: ${theme.colors.lightTextColor};
-  
 }
 
 h1 {

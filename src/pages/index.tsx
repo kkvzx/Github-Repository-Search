@@ -17,13 +17,16 @@ const Home: React.FC = () => {
   const [reposData, setReposData] = useState<any>();
   const [amountOfResponses, setAmountOfResponses] = useState<number>(0);
   const [currentPage, setCurrentPage] = useState<number>(1);
-
+  const [selectedSort, setSelectedSort] = useState({sort: '', order: ''});
+  if (selectedSort.sort) {
+    console.log('NIE NO ŻART');
+  }
   const fetchData = async () => {
     if (repoInput) {
-      const queryTerm = `q=${repoInput}&`;
-      const querySort = ``;
-      const queryOrder = ``;
-      const queryPerPage = `per_page=30`;
+      const queryTerm = `q=${repoInput}`;
+      const querySort = selectedSort.sort ? `&sort=${selectedSort.sort}` : '';
+      const queryOrder = selectedSort.order ? `&order=${selectedSort.order}` : '';
+      const queryPerPage = `&per_page=30`;
       const queryPage = `&page=${currentPage ? currentPage : 1}`;
       const queryString = queryTerm + querySort + queryOrder + queryPerPage + queryPage;
       let url = `https://api.github.com/search/repositories?${queryString}`;
@@ -38,7 +41,7 @@ const Home: React.FC = () => {
   };
   useEffect(() => {
     fetchData();
-  }, [currentPage]);
+  }, [currentPage, selectedSort]);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -69,6 +72,7 @@ const Home: React.FC = () => {
             reposData={reposData}
             currentPage={currentPage}
             pageToggle={pageToggle}
+            setSelectedSort={setSelectedSort}
           />
         )}
       </PageWrapper>

@@ -1,7 +1,8 @@
 import {GatsbyImage, getImage} from 'gatsby-plugin-image';
 import styled from 'styled-components';
-import {BsBookmarks} from 'react-icons/bs';
+import {BsBookmarks, BsBookmarksFill} from 'react-icons/bs';
 import {AiFillStar} from 'react-icons/ai';
+import {useEffect, useState} from 'react';
 
 const SingleRepoWrapper = styled.div`
   display: grid;
@@ -39,6 +40,12 @@ const AuthorName = styled.a`
   font-size: 12px;
   text-decoration: none;
   color: #717780;
+  &.title {
+    color: white;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 `;
 const BookmarksWrapper = styled.div`
   /* background: green; */
@@ -50,6 +57,10 @@ const Bookmark = styled(BsBookmarks)`
   font-size: 1.4rem;
   cursor: pointer;
 `;
+const FilledBookmark = styled(BsBookmarksFill)`
+  font-size: 1.4rem;
+  cursor: pointer;
+`;
 const RepoHeader = styled.div`
   display: flex;
   align-items: center;
@@ -58,7 +69,19 @@ const Star = styled(AiFillStar)`
   color: var(--secondary-color);
 `;
 
-const SingleRepository = ({repoName, description, author, avatarUrl, authorUrl, stargazerCount}: Props) => {
+const SingleRepository = ({
+  repoName,
+  description,
+  author,
+  avatarUrl,
+  stargazerCount,
+  url,
+  sourceUrl,
+  favorites,
+  addToFavorites,
+}: SingleRepositoryProps) => {
+  const data = {repoName, description, author, avatarUrl, stargazerCount, url, sourceUrl};
+
   return (
     <SingleRepoWrapper>
       <AuthorWrapper>
@@ -71,25 +94,35 @@ const SingleRepository = ({repoName, description, author, avatarUrl, authorUrl, 
       </AuthorWrapper>
       <RepositoryInfoWrapper>
         <RepoHeader>
-          <StyledTitle>{repoName}</StyledTitle>
+          <AuthorName href={url} target="_blank" className="title">
+            <StyledTitle>{repoName}</StyledTitle>
+          </AuthorName>
+
           <StyledDescription>` {stargazerCount}`</StyledDescription>
           <Star />
         </RepoHeader>
         <StyledDescription>{description ? description : 'No description provided'}</StyledDescription>
       </RepositoryInfoWrapper>
       <BookmarksWrapper>
-        <Bookmark />
+        {favorites.filter((fav: any) => fav.sourceUrl === data.sourceUrl).length > 0 ? (
+          <FilledBookmark onClick={() => addToFavorites(data)} />
+        ) : (
+          <Bookmark onClick={() => addToFavorites(data)} />
+        )}
       </BookmarksWrapper>
     </SingleRepoWrapper>
   );
 };
 
-interface Props {
+export interface SingleRepositoryProps {
   repoName: string;
   description: string;
   author: string;
   avatarUrl: string;
-  authorUrl: string;
   stargazerCount: number;
+  url: string;
+  sourceUrl: string;
+  addToFavorites: any;
+  favorites: any;
 }
 export default SingleRepository;
