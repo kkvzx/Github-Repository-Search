@@ -44,22 +44,14 @@ const Explore = ({amountOfResponses, reposData, currentPage, setSelectedSort, pa
   const [favorites, setFavorites] = useState<any>([]);
   const getArray = JSON.parse(localStorage.getItem('favorites') || '0');
 
-  const addToFavorites = (data: any) => {
-    // checks if item is already in favorites if yes then delete it
-    if (favorites.filter((fav: any) => fav.sourceUrl === data.sourceUrl).length > 0) {
-      setFavorites((prev: any) => prev.filter((fav: any) => fav.sourceUrl !== data.sourceUrl));
-    } else {
-      setFavorites((prev: any) => [...prev, data]);
-    }
-    console.log(favorites);
-    // saving fav to local storage
-  };
+  // Gets favorites from local storage
   useEffect(() => {
     if (getArray !== 0) {
       setFavorites([...getArray]);
     }
   }, []);
 
+  //saves favorites to local storage
   useEffect(() => {
     localStorage.setItem('favorites', JSON.stringify(favorites));
   }, [favorites]);
@@ -86,7 +78,7 @@ const Explore = ({amountOfResponses, reposData, currentPage, setSelectedSort, pa
               url={singleRepo.html_url}
               sourceUrl={singleRepo.url}
               favorites={favorites}
-              addToFavorites={addToFavorites}
+              setFavorites={setFavorites}
             />
           );
         })}

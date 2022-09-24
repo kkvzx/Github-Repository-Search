@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import {BsBookmarks, BsBookmarksFill} from 'react-icons/bs';
 import {AiFillStar} from 'react-icons/ai';
 import {useEffect, useState} from 'react';
+import {addToFavorites} from './addToFavorities';
 
 const SingleRepoWrapper = styled.div`
   display: grid;
@@ -78,7 +79,7 @@ const SingleRepository = ({
   url,
   sourceUrl,
   favorites,
-  addToFavorites,
+  setFavorites,
 }: SingleRepositoryProps) => {
   const data = {repoName, description, author, avatarUrl, stargazerCount, url, sourceUrl};
 
@@ -103,13 +104,15 @@ const SingleRepository = ({
         </RepoHeader>
         <StyledDescription>{description ? description : 'No description provided'}</StyledDescription>
       </RepositoryInfoWrapper>
-      <BookmarksWrapper>
-        {favorites.filter((fav: any) => fav.sourceUrl === data.sourceUrl).length > 0 ? (
-          <FilledBookmark onClick={() => addToFavorites(data)} />
-        ) : (
-          <Bookmark onClick={() => addToFavorites(data)} />
-        )}
-      </BookmarksWrapper>
+      {favorites && (
+        <BookmarksWrapper>
+          {favorites.filter((fav: any) => fav.sourceUrl === data.sourceUrl).length > 0 ? (
+            <FilledBookmark onClick={() => addToFavorites(data, favorites, setFavorites)} />
+          ) : (
+            <Bookmark onClick={() => addToFavorites(data, favorites, setFavorites)} />
+          )}
+        </BookmarksWrapper>
+      )}
     </SingleRepoWrapper>
   );
 };
@@ -122,7 +125,7 @@ export interface SingleRepositoryProps {
   stargazerCount: number;
   url: string;
   sourceUrl: string;
-  addToFavorites: any;
-  favorites: any;
+  setFavorites?: any;
+  favorites?: any;
 }
 export default SingleRepository;
