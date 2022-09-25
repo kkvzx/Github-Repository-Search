@@ -66,22 +66,26 @@ const Explore = ({amountOfResponses, reposData, currentPage, setSelectedSort, pa
         <Dropdown setSelectedSort={setSelectedSort} />
       </SingleTitleLine>
       <StyledExploreWrapper>
-        {reposData.map((singleRepo: any) => {
-          return (
-            <SingleRepository
-              key={singleRepo.node_id}
-              repoName={singleRepo.name}
-              description={singleRepo.description}
-              author={singleRepo.owner.login}
-              avatarUrl={singleRepo.owner.avatar_url}
-              stargazerCount={singleRepo.stargazers_count}
-              url={singleRepo.html_url}
-              sourceUrl={singleRepo.url}
-              favorites={favorites}
-              setFavorites={setFavorites}
-            />
-          );
-        })}
+        {amountOfResponses > 0 ? (
+          reposData.map((singleRepo: any) => {
+            return (
+              <SingleRepository
+                key={singleRepo.node_id}
+                repoName={singleRepo.name}
+                description={singleRepo.description}
+                author={singleRepo.owner.login}
+                avatarUrl={singleRepo.owner.avatar_url}
+                stargazerCount={singleRepo.stargazers_count}
+                url={singleRepo.html_url}
+                sourceUrl={singleRepo.url}
+                favorites={favorites}
+                setFavorites={setFavorites}
+              />
+            );
+          })
+        ) : (
+          <p>There is no such repositories</p>
+        )}
         <ArrowsContainer>
           <AiOutlineArrowLeft className="left" onClick={() => pageToggle('prev')} />
           <p>
