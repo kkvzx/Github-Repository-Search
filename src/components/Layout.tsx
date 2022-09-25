@@ -14,7 +14,7 @@ const StyledNav = styled.nav`
     list-style-type: none;
     display: grid;
     grid-gap: 8px;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     justify-items: stretch;
   }
 
@@ -59,7 +59,11 @@ const Layout: React.FC<Props> = ({children}) => (
             Home
           </Link>
         </li>
-
+        <li>
+          <Link activeClassName="active" partiallyActive={true} to="/search">
+            Search
+          </Link>
+        </li>
         <li>
           <Link activeClassName="active" to={`/bookmarks`}>
             Bookmarks
