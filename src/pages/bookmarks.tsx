@@ -18,7 +18,7 @@ const StyledText = styled.p`
 const Bookmarks = () => {
   const [favorites, setFavorites] = useState<any>([]);
   // gets favorites from local storage
-  const getArray = JSON.parse(localStorage.getItem('favorites') || '0');
+  const getArray = typeof window !== 'undefined' && JSON.parse(localStorage.getItem('favorites') || '0');
   useEffect(() => {
     if (getArray !== 0) {
       setFavorites([...getArray]);
@@ -26,7 +26,7 @@ const Bookmarks = () => {
   }, []);
   //saves favoritestes to local storage
   useEffect(() => {
-    localStorage.setItem('favorites', JSON.stringify(favorites));
+    typeof window !== 'undefined' && localStorage.setItem('favorites', JSON.stringify(favorites));
   }, [favorites]);
   return (
     <Layout>

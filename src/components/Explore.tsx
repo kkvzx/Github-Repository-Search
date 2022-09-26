@@ -45,7 +45,7 @@ const ArrowsContainer = styled.div`
 const Explore = ({amountOfResponses, reposData, currentPage, setSelectedSort, pageToggle}: ExploreProps) => {
   const totalNumberOfPages = Math.ceil(amountOfResponses / 30);
   const [favorites, setFavorites] = useState<any>([]);
-  const getArray = JSON.parse(localStorage.getItem('favorites') || '0');
+  const getArray = typeof window !== 'undefined' && JSON.parse(localStorage.getItem('favorites') || '0');
 
   // Gets favorites from local storage
   useEffect(() => {
@@ -56,7 +56,7 @@ const Explore = ({amountOfResponses, reposData, currentPage, setSelectedSort, pa
 
   //saves favorites to local storage
   useEffect(() => {
-    localStorage.setItem('favorites', JSON.stringify(favorites));
+    typeof window !== 'undefined' && localStorage.setItem('favorites', JSON.stringify(favorites));
   }, [favorites]);
 
   return (

@@ -6,5 +6,3 @@ export const addToFavorites = (data: any, favorites: any, setFavorites: any) => 
     setFavorites((prev: any) => [...prev, data]);
   }
 };
-
-// Jeżeli chce żeby to zadziałało to tutaj musi się odbywać zapisanie do localstorage
