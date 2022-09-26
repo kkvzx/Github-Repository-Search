@@ -79,18 +79,13 @@ const Layout: React.FC<Props> = ({children}) => (
     <GlobalStyle />
     <StyledNav>
       <ul>
-        {/* <li>
-          <Link activeClassName="active" to={`/`}>
-            Home
-          </Link>
-        </li> */}
         <li>
           <Link activeClassName="active" partiallyActive={true} to="/search">
             Search
           </Link>
         </li>
         <li>
-          <Link activeClassName="active" to={`/bookmarks`}>
+          <Link activeClassName="active" to="/bookmarks">
             Bookmarks
           </Link>
         </li>
