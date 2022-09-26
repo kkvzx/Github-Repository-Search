@@ -61,7 +61,6 @@ const StyledMain = styled.main`
   background: var(--background-color);
   border-radius: 50px 50px 0 0;
   display: flex;
-  align-items: center;
   justify-content: center;
   @media screen and (max-width: 600px) {
     padding: 0 5%;

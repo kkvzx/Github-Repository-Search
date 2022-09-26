@@ -11,8 +11,6 @@ const PageWrapper = styled.article`
   padding: 2rem 0;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
 `;
 const Search = () => {
   const [repoInput, setRepoInput] = useState<string>('');
