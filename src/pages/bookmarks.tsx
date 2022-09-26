@@ -7,7 +7,13 @@ const PageWrapper = styled.article`
   padding: 2rem 0;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  color: #717780;
+  @media screen and (max-width: 600px) {
+    margin-bottom: 45px;
+  }
+`;
+const StyledText = styled.p`
+  text-align: center;
 `;
 const Bookmarks = () => {
   const [favorites, setFavorites] = useState<any>([]);
@@ -41,7 +47,7 @@ const Bookmarks = () => {
             />
           ))
         ) : (
-          <p>Nothing to be shown yet.</p>
+          <StyledText>Nothing to be shown yet.</StyledText>
         )}
       </PageWrapper>
     </Layout>

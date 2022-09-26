@@ -76,6 +76,9 @@ body {
 font-family: 'Poppins', sans-serif;
   background-color: ${theme.colors.secondary};
   color: ${theme.colors.lightTextColor};
+        @media screen and (max-width: 600px) {
+        background-color:${theme.colors.background};
+      }
 }
 
 h1 {

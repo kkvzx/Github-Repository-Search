@@ -6,6 +6,9 @@ import Dropdown from './Dropdown';
 
 const StyledExploreWrapper = styled.article`
   border-top: 1px solid #26313e;
+  @media screen and (max-width: 600px) {
+    margin-bottom: 45px;
+  }
 `;
 const SingleTitleLine = styled.div`
   display: flex;

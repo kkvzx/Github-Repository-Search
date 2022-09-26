@@ -12,6 +12,9 @@ const SingleRepoWrapper = styled.div`
   gap: 8px;
   padding: 8px 0;
   border-bottom: 1px solid #26313e;
+  @media screen and (max-width: 600px) {
+    grid-template-columns: 0.1fr 0.8fr 0.1fr;
+  }
 `;
 const StyledTitle = styled.p`
   font-size: 16px;
@@ -21,12 +24,13 @@ const StyledDescription = styled.p`
   color: #717780;
 `;
 const AuthorWrapper = styled.section`
-  min-width: 5rem;
+  /* min-width: 5rem; */
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
   justify-content: center;
+  overflow: hidden;
 `;
 const RepositoryInfoWrapper = styled.section`
   display: flex;
